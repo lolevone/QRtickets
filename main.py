@@ -10,7 +10,7 @@ import cypher
 # 3) удалить мероприятие
 # 4) редактировать мероприятие
 
-events.set_path("C:/Users/toto_/OneDrive/Рабочий стол/test/")
+events.set_path("")
 
 print(cypher.encrypt_number("B2F307C283D0AB70C70B61376", cypher.get_gamma_filename("000000")))
 
