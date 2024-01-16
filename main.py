@@ -1,4 +1,7 @@
-#made by ROFLMAOL0L https://github.com/ROFLMAOL0L and lolevone https://github.com/lolevone
+# events.set_path("C:/Users/toto_/OneDrive/Рабочий стол/test/events/")
+# QRs.set_path("C:/Users/toto_/OneDrive/Рабочий стол/test/QRs/")
+
+# made by ROFLMAOL0L https://github.com/ROFLMAOL0L and lolevone https://github.com/lolevone
 import telebot
 import time
 import os
@@ -14,14 +17,14 @@ def clean(text):
     return text
 
 
-print(time.ctime(time.time()), '\n', 'Gut_mero_bot started started')
+print(time.ctime(time.time()), '\n', 'Gut_mero_bot started')
 f = open("token.txt", 'r', encoding='utf-8')
 professors_bot_token = f.readline()[:-1]
 f.close()
-os.mkdir(str(os.getcwd()) + '/GUT_MERO_QRS/')
-os.mkdir(str(os.getcwd()) + 'GUT_MERO_TEXTS/')
+# os.mkdir(str(os.getcwd()) + '/GUT_MERO_QRS/')
+# os.mkdir(str(os.getcwd()) + '/GUT_MERO_TEXTS/')
 qrs_path = str(os.getcwd()) + '/GUT_MERO_QRS/'
-events_path = str(os.getcwd()) + 'GUT_MERO_TEXTS/'
+events_path = str(os.getcwd()) + '/GUT_MERO_TEXTS/'
 events.set_path(events_path)
 QRs.set_path(qrs_path)
 bot = telebot.TeleBot(professors_bot_token)
@@ -56,7 +59,7 @@ def get_list_menu(message):
             types.InlineKeyboardButton(
                 text=events.get_title(events_list[i]),
                 callback_data='edit/' + events_list[i])
-            )
+        )
     bot.send_message(message.chat.id, "Выберите мероприятие", reply_markup=temp_markup)
 
 
@@ -66,7 +69,7 @@ def edit_event(call):
     temp_markup = types.InlineKeyboardMarkup()
     temp_markup.add(
         types.InlineKeyboardButton(
-            text='Указать время',
+            text='Указать время и дату',
             callback_data='set_time/' + call.data.split('/')[1]
         )
     )
@@ -99,7 +102,7 @@ def edit_event(call):
 def set_event_time(call):
     bot.edit_message_text(chat_id=call.message.chat.id,
                           message_id=call.message.message_id,
-                          text='Введите время в формате "12:20 - 13:00"')
+                          text='Введите время и дату')
     bot.register_next_step_handler(call.message, lambda m: set_event_time_2(m, call.data.split('/')[1]))
 
 
@@ -178,10 +181,10 @@ def set_number_of_visitors(call):
         )
     bot.edit_message_text(chat_id=call.message.chat.id,
                           message_id=call.message.message_id,
-                          text=str(events.get_title(event_name)) + '\n' +
-                               'Аудитория ' + str(events.get_audience_number(event_name)) + '\n' +
-                               'Время: ' + str(events.get_time(event_name)) + '\n'
-                               'Количество посетителей: ' + str(events.get_numbers_of_visitors(event_name)[0]) + '/' +
+                          text=str(events.get_title(event_name)) + '\n' + 'Аудитория ' +
+                               str(events.get_audience_number(event_name)) + '\n' + 'Время и дата: ' +
+                               str(events.get_time(event_name)) + '\n' + 'Количество посетителей: ' +
+                               str(events.get_numbers_of_visitors(event_name)[0]) + '/' +
                                str(events.get_numbers_of_visitors(event_name)[1]) + '\n' +
                                str(events.get_description(event_name)),
                           reply_markup=temp_markup)
@@ -196,8 +199,8 @@ def book_event(call):
     events.add_visitor(event_name, str(call.message.chat.id))
     bot.edit_message_text(chat_id=call.message.chat.id,
                           message_id=call.message.message_id,
-                          text='Вы успешно записаны на мероприятие"' + str(events.get_title(event_name)) + '"!' + '\n' +
-                          'Вот QR-код к нему, покажите его на входе на мероприятие.')
+                          text='Вы успешно записаны на мероприятие "' + str(events.get_title(event_name)) + '"!' + '\n' +
+                               'Вот QR-код к нему, покажите его на входе на мероприятие.')
 
 
 # Проверка пользователя
@@ -219,7 +222,7 @@ def check_visitor_1(call):
     bot.edit_message_text(chat_id=call.message.chat.id,
                           message_id=call.message.message_id,
                           text='Введите текст, распознанный камерой при наведении на QR-код посетителя')
-    bot.register_next_step_handler(call.message, lambda m:check_visitor_2(m, call.data.split('/')[1]))
+    bot.register_next_step_handler(call.message, lambda m: check_visitor_2(m, call.data.split('/')[1]))
 
 
 def check_visitor_2(message, event_name):
@@ -235,7 +238,6 @@ def check_visitor_2(message, event_name):
         else:
             bot.send_message(message.chat.id, 'Посетитель не найден. (неверный QR-код, не то мероприятие'
                                               ' или посетитель под таким QR-кодом уже прошел)')
-
 
 
 # Удалить мероприятие
