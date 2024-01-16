@@ -29,13 +29,13 @@ def get_list() -> list:
 def new_qr(name: str, visitor_id: str) -> None:
     """Creates a PNG image of a QR code from text (name - name of the file with the event)."""
     qrcode = segno.make_qr(cypher.encrypt_number(visitor_id, cypher.get_gamma_filename(name)))
-    qrcode.save(f"{path}{visitor_id}.png", dark=(0, 0, 0), light=(255, 255, 255))
+    qrcode.save(f"{path}{visitor_id}.png", dark=(0, 0, 0), light=(255, 255, 255), scale=15)
 
 
-def remove_qr(name: str) -> None:
+def remove_qr(visitor_id: str) -> None:
     """Deletes an image with the selected name."""
     global path
-    os.remove(f"{path}{name}.png")
+    os.remove(f"{path}{visitor_id}.png")
 
 
 # QR code reading
