@@ -28,7 +28,7 @@ def new_event(name: str) -> None:
     """Creates a new event with some name."""
     global path
     f = open(f"{path}{name}.txt", 'w', encoding="utf-8")
-    text = "event" + "\n\n" * 5
+    text = "event" + "\n\n" * 3 + "0/0\n\n" * 3
     f.write(cypher.encrypt_text(text, cypher.get_gamma_filename(name)))
     f.close()
 
@@ -139,13 +139,21 @@ def get_audience_number(name: str) -> str:
     return audience_number
 
 
+def get_visitors_list(name: str) -> list:
+    """Returns a list of registered visitors."""
+    text = read_file_text(name).split("\n\n")
+    visitors_list = text[6].split("\n")[:-1]
+    return visitors_list
+
+
 # Additional functions
-def add_visitor(name: str) -> None:
+def add_visitor(name: str, visitor_id: str) -> None:
     """Increases the number of current visitors by one."""
     text = read_file_text(name).split("\n\n")
     numbers = text[4].split('/')
     numbers[0] = str(int(numbers[0]) + 1)
     numbers = '/'.join(numbers)
     text[4] = numbers
+    text[6] += f"{visitor_id}\n"
     text = "\n\n".join(text)
     write_file_text(name, text)
