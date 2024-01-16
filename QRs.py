@@ -15,7 +15,7 @@ def set_path(new_path: str) -> None:
     list_of_images = get_list()
 
 
-def get_list() -> list:
+def get_list() -> list[str]:
     """Returns a list of images located in the working folder."""
     global path
     list_of_files = []

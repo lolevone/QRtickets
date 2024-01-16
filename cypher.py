@@ -62,7 +62,7 @@ def encrypt_number(number: str, gamma: list) -> str:
     return new_number
 
 
-def get_gamma_filename(name: str) -> list:
+def get_gamma_filename(name: str) -> list[int]:
     """Returns a list of values for gamma encryption calculated using the filename."""
     initial_key = 0
     factor = 1

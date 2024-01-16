@@ -12,7 +12,7 @@ def set_path(new_path: str) -> None:
     list_of_events = get_list()
 
 
-def get_list() -> list:
+def get_list() -> list[str]:
     """Returns a list of events located in the working folder."""
     global path
     list_of_files = []
@@ -123,7 +123,7 @@ def get_time(name: str) -> str:
     return time
 
 
-def get_numbers_of_visitors(name: str) -> list:
+def get_numbers_of_visitors(name: str) -> list[int]:
     """Returns the current and maximum number of visitors to an event. [current, max]"""
     text = read_file_text(name).split("\n\n")
     numbers = []
@@ -139,7 +139,7 @@ def get_audience_number(name: str) -> str:
     return audience_number
 
 
-def get_visitors_list(name: str) -> list:
+def get_visitors_list(name: str) -> list[str]:
     """Returns a list of registered visitors."""
     text = read_file_text(name).split("\n\n")
     visitors_list = text[6].split("\n")[:-1]
@@ -155,5 +155,18 @@ def add_visitor(name: str, visitor_id: str) -> None:
     numbers = '/'.join(numbers)
     text[4] = numbers
     text[6] += f"{visitor_id}\n"
+    text = "\n\n".join(text)
+    write_file_text(name, text)
+
+
+def mark_visitor(name: str, visitor_id: str) -> None:
+    """Marks the presence of a visitor."""
+    text = read_file_text(name).split("\n\n")
+    visitors_list = text[6].split("\n")[:-1]
+    for i in range(len(visitors_list)):
+        if visitors_list[i] == visitor_id:
+            visitors_list[i] += "#"
+            break
+    text[6] = "\n".join(visitors_list)
     text = "\n\n".join(text)
     write_file_text(name, text)
