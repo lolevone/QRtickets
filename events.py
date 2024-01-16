@@ -1,20 +1,18 @@
 import cypher
 import os
 
-path = ""
-list_of_events = []
+global path, list_of_events
 
 
 # Path and dir
-def set_path(new_path: str):
+def set_path(new_path: str) -> None:
     """Sets the working folder path and updates the list of events."""
-    global path
+    global path, list_of_events
     path = new_path
-    global list_of_events
     list_of_events = get_list()
 
 
-def get_list():
+def get_list() -> list:
     """Returns a list of events located in the working folder."""
     global path
     list_of_files = []
@@ -26,7 +24,7 @@ def get_list():
 
 
 # Create and delete an event
-def new_event(name: str):
+def new_event(name: str) -> None:
     """Creates a new event with some name."""
     global path
     f = open(f"{path}{name}.txt", 'w', encoding="utf-8")
@@ -35,14 +33,14 @@ def new_event(name: str):
     f.close()
 
 
-def remove_event(name: str):
+def remove_event(name: str) -> None:
     """Deletes an event with the selected name."""
     global path
     os.remove(f"{path}{name}.txt")
 
 
 # File text
-def write_file_text(name: str, text: str):
+def write_file_text(name: str, text: str) -> None:
     """Writes text to a file using gamma cipher."""
     global path
     f = open(f"{path}{name}.txt", 'w', encoding="utf-8")
@@ -50,7 +48,7 @@ def write_file_text(name: str, text: str):
     f.close()
 
 
-def read_file_text(name: str):
+def read_file_text(name: str) -> str:
     """Returns decrypted text from a file."""
     global path
     f = open(f"{path}{name}.txt", 'r', encoding="utf-8")
@@ -60,7 +58,7 @@ def read_file_text(name: str):
 
 
 # Events setters
-def set_title(name: str, title: str):
+def set_title(name: str, title: str) -> None:
     """Changes the event title."""
     text = read_file_text(name).split("\n\n")
     text[1] = title
@@ -68,7 +66,7 @@ def set_title(name: str, title: str):
     write_file_text(name, text)
 
 
-def set_description(name: str, description: str):
+def set_description(name: str, description: str) -> None:
     """Changes the event description."""
     text = read_file_text(name).split("\n\n")
     text[2] = description
@@ -76,7 +74,7 @@ def set_description(name: str, description: str):
     write_file_text(name, text)
 
 
-def set_time(name: str, start_time: str, end_time: str):
+def set_time(name: str, start_time: str, end_time: str) -> None:
     """changes the time of the event."""
     text = read_file_text(name).split("\n\n")
     text[3] = start_time + '/' + end_time
@@ -84,7 +82,7 @@ def set_time(name: str, start_time: str, end_time: str):
     write_file_text(name, text)
 
 
-def set_max_number_of_visitors(name: str, max_number_of_visitors: int):
+def set_max_number_of_visitors(name: str, max_number_of_visitors: int) -> None:
     """Changes the maximum number of event visitors."""
     text = read_file_text(name).split("\n\n")
     numbers = text[4].split('/')
@@ -95,7 +93,7 @@ def set_max_number_of_visitors(name: str, max_number_of_visitors: int):
     write_file_text(name, text)
 
 
-def set_audience_number(name: str, audience_number: str):
+def set_audience_number(name: str, audience_number: str) -> None:
     """Changes the location of the event."""
     text = read_file_text(name).split("\n\n")
     text[5] = audience_number
@@ -104,28 +102,28 @@ def set_audience_number(name: str, audience_number: str):
 
 
 # Events getters
-def get_title(name: str):
+def get_title(name: str) -> str:
     """Returns the event title."""
     text = read_file_text(name).split("\n\n")
     title = text[1]
     return title
 
 
-def get_description(name: str):
+def get_description(name: str) -> str:
     """Returns the event description."""
     text = read_file_text(name).split("\n\n")
     description = text[2]
     return description
 
 
-def get_time(name: str):
+def get_time(name: str) -> list:
     """Returns the time of the event. [start, end]"""
     text = read_file_text(name).split("\n\n")
     time = text[3].split('/')
     return time
 
 
-def get_numbers_of_visitors(name: str):
+def get_numbers_of_visitors(name: str) -> list:
     """Returns the current and maximum number of visitors to an event. [current, max]"""
     text = read_file_text(name).split("\n\n")
     numbers = []
@@ -134,7 +132,7 @@ def get_numbers_of_visitors(name: str):
     return numbers
 
 
-def get_audience_number(name: str):
+def get_audience_number(name: str) -> str:
     """Returns the location of the event."""
     text = read_file_text(name).split("\n\n")
     audience_number = text[5]
@@ -142,7 +140,7 @@ def get_audience_number(name: str):
 
 
 # Additional functions
-def add_visitor(name: str):
+def add_visitor(name: str) -> None:
     """Increases the number of current visitors by one."""
     text = read_file_text(name).split("\n\n")
     numbers = text[4].split('/')

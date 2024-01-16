@@ -1,4 +1,4 @@
-def encrypt_text(text: str, gamma: list):
+def encrypt_text(text: str, gamma: list) -> str:
     """Returns text encrypted using gamma encryption."""
     new_text = ""
     for symbol in text:
@@ -24,7 +24,7 @@ def encrypt_text(text: str, gamma: list):
     return new_text  # .encode('utf-16', 'replace').decode('utf-16', 'replace')
 
 
-def encrypt_number(number: str, gamma: list):
+def encrypt_number(number: str, gamma: list) -> str:
     """Returns a number encrypted using gamma encryption."""
     new_number = ""
     alphabet = "ABCDEF"
@@ -62,7 +62,7 @@ def encrypt_number(number: str, gamma: list):
     return new_number
 
 
-def get_gamma_filename(name: str):
+def get_gamma_filename(name: str) -> list:
     """Returns a list of values for gamma encryption calculated using the filename."""
     initial_key = 0
     factor = 1
