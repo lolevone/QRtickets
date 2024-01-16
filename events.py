@@ -74,10 +74,10 @@ def set_description(name: str, description: str) -> None:
     write_file_text(name, text)
 
 
-def set_time(name: str, start_time: str, end_time: str) -> None:
+def set_time(name: str, time: str) -> None:
     """changes the time of the event."""
     text = read_file_text(name).split("\n\n")
-    text[3] = start_time + '/' + end_time
+    text[3] = time
     text = "\n\n".join(text)
     write_file_text(name, text)
 
@@ -116,10 +116,10 @@ def get_description(name: str) -> str:
     return description
 
 
-def get_time(name: str) -> list:
-    """Returns the time of the event. [start, end]"""
+def get_time(name: str) -> str:
+    """Returns the time of the event."""
     text = read_file_text(name).split("\n\n")
-    time = text[3].split('/')
+    time = text[3]
     return time
 
 
