@@ -1,6 +1,3 @@
-# events.set_path("C:/Users/toto_/OneDrive/Рабочий стол/test/events/")
-# QRs.set_path("C:/Users/toto_/OneDrive/Рабочий стол/test/QRs/")
-
 # made by ROFLMAOL0L https://github.com/ROFLMAOL0L and lolevone https://github.com/lolevone
 import telebot
 import time
@@ -21,10 +18,8 @@ print(time.ctime(time.time()), '\n', 'Gut_mero_bot started')
 f = open("token.txt", 'r', encoding='utf-8')
 professors_bot_token = f.readline()[:-1]
 f.close()
-# os.mkdir(str(os.getcwd()) + '/GUT_MERO_QRS/')
-# os.mkdir(str(os.getcwd()) + '/GUT_MERO_TEXTS/')
-qrs_path = str(os.getcwd()) + '/GUT_MERO_QRS/'
-events_path = str(os.getcwd()) + '/GUT_MERO_TEXTS/'
+qrs_path = str(os.getcwd()) + '/events/'
+events_path = str(os.getcwd()) + '/qrs/'
 events.set_path(events_path)
 QRs.set_path(qrs_path)
 bot = telebot.TeleBot(professors_bot_token)
