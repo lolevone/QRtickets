@@ -3,26 +3,13 @@ import segno
 import os
 
 path = ""
-list_of_images = []
 
 
 # Path and dir
 def set_path(new_path: str) -> None:
-    """Sets the working folder path and updates the list of images."""
+    """Sets the working folder path."""
     global path
     path = new_path
-    global list_of_images
-    list_of_images = get_list()
-
-
-def get_list() -> list[str]:
-    """Returns a list of images located in the working folder."""
-    global path
-    list_of_files = []
-    for file in os.listdir(path):
-        if file[-4:] == ".png":
-            list_of_files.append(file[:-4])
-    return list_of_files
 
 
 # Create and delete an image

@@ -194,8 +194,8 @@ def book_event(call):
     events.add_visitor(event_name, str(call.message.chat.id))
     bot.edit_message_text(chat_id=call.message.chat.id,
                           message_id=call.message.message_id,
-                          text='Вы успешно записаны на мероприятие "' + str(events.get_title(event_name)) + '"!' + '\n' +
-                               'Вот QR-код к нему, покажите его на входе на мероприятие.')
+                          text='Вы успешно записаны на мероприятие "' + str(events.get_title(event_name)) + '"!'
+                               + '\n' + 'Вот QR-код к нему, покажите его на входе на мероприятие.')
 
 
 # Проверка пользователя
@@ -209,7 +209,8 @@ def check_visitor(message):
                 text=events.get_title(events_list[i]),
                 callback_data='check_visitor/' + events_list[i])
         )
-    bot.send_message(message.chat.id, 'Выберите мероприятие, для которого проверяется билет', reply_markup=temp_markup)
+    bot.send_message(message.chat.id, 'Выберите мероприятие, для которого проверяется билет',
+                     reply_markup=temp_markup)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.split('/')[0] == 'check_visitor')
